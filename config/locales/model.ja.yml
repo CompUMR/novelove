@@ -1,0 +1,24 @@
+ja:
+  activerecord:
+    models:
+      admin: "管理者情報"
+      customer: "会員情報"
+      genre: "ジャンル"
+      item: "小説"
+    attributes:
+      admin:
+        email: "メールアドレス"
+        password: "パスワード"
+      customer:
+        email: "メールアドレス"
+        password: "パスワード"
+        last_name: "ユーザーネーム"
+        last_name_kana: "ユーザーネーム(カナ)"
+        is_active: "退会ステータス"
+      genre:
+        name: "ジャンル名"
+      item:
+        name: "小説名"
+        image: "小説画像"
+        introduction: "小説説明"
+        is_active: "公開ステータス"

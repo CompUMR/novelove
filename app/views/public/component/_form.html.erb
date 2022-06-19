@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row my-2 form-group">
+    <%= f.label :image, "小説画像", class: "col-3" %>
+    <%= f.file_field :image, class: "form-control col-8" %>
+  </div>
+
+  <div class="row my-2 form-group">
+    <%= f.label :upload_file, "ファイル投稿", class: "col-3" %>
+    <%= f.file_field :upload_file, class: "form-control col-8" %>
+  </div>
+
+  <label class="row my-2" style="margin: 0px 0px 0px 265px;">※ txtファイルのみ対応。空白・改行を含む200〜70000文字以内</label>
+
+  <div class="row my-2 form-group">
+    <%= f.label :name, "小説名" , class: "col-3" %>
+    <%= f.text_field :name, placeholder: "小説名", class: "form-control col-8" %>
+  </div>
+
+  <div class="row my-2 form-group">
+    <%= f.label :introduction, "小説説明", class: "col-3" %>
+    <%= f.text_area :introduction, placeholder: "ここに説明文を記入します", class: "form-control col-8" %>
+  </div>
+
+  <div class="row my-2 form-group">
+    <%= f.label :genre_id, "ジャンル", class: "col-3" %>
+    <%= f.select :genre_id, options_from_collection_for_select(Genre.all, :id, :name), {}, class: "form-control col-8" %>
+  </div>
+
+  <div class="row my-2 form-group">
+    <%= f.label :is_active, "公開ステータス", class: "col-3" %>
+    <% [true, false].each do |st| %>
+      <div class="form-check form-check-inline">
+        <%= f.radio_button :is_active, st, class: "form-check-input" %>
+        <%= f.label :is_active, @item.get_status_string(st), class: "form-check-label" %>
+      </div>
+    <% end %>
+  </div>
+</div>

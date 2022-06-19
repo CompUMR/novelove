@@ -1,0 +1,36 @@
+<%= render "layouts/section", title: "マイページ" %>
+
+<div class="container">
+  <div class="row">
+    <h4 class="my-auto col-2">登録情報</h4>
+    <%= link_to "編集する", customers_edit_path, class: "btn btn-success my-auto ml-4" %>
+  </div>
+
+  <div class="row my-4">
+    <table class="table table-bordered col-8">
+      <tbody>
+        <tr>
+          <th class="bg-light">ユーザーネーム</th>
+          <td><%= current_customer.last_name %></td>
+        </tr>
+        <tr>
+          <th class="bg-light">フリガナ</th>
+          <td><%= current_customer.last_name_kana %></td>
+        </tr>
+        <tr>
+          <th class="bg-light">メールアドレス</th>
+          <td><%= current_customer.email %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="my-4">
+    <!--customersコントローラのpostedアクションが走り、posted.html.erbへ遷移-->
+    <%= link_to "投稿した小説一覧を見る", customer_posted_path(current_customer.id) %>
+  </div>
+  <div class="my-4">
+    <!--customersコントローラのlikedアクションが走り、posted.html.erbへ遷移-->
+    <%= link_to "いいねした小説一覧を見る", customer_liked_path(current_customer.id) %>
+  </div>
+</div>

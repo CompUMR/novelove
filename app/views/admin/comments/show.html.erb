@@ -1,0 +1,24 @@
+<%= render "layouts/section", title: "コメント履歴詳細" %>
+
+<table class="table table-borderless">
+  <tbody>
+    <tr>
+      <th>コメントユーザー</th>
+      <!--customersコントローラのshowアクションが走り、customers/show.html.erbへ遷移-->
+      <td><u><%= link_to @comment.customer.full_name, admin_customer_path(@comment.customer) %></u></td>
+    </tr>
+    <tr>
+      <th>コメント日時</th>
+      <td><%= @comment.created_at.strftime('%Y/%m/%d') %></td>
+    </tr>
+  </tbody>
+</table>
+
+<div>
+  <h4>コメント内容</h4>
+  <div class="mb-4"><%= @comment.comment %></div>
+  <span class="btn btn-sm btn-danger">
+    <!--admin/commentsコントローラのdestroyアクションが走る-->
+    <%= link_to "削除", admin_comment_path(@comment.id), method: :delete, class: 'text-light', "data-confirm" => "本当に消しますか？" %>
+  </span>
+</div>

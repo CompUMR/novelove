@@ -6,8 +6,9 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module NaganoCake
+module NoveLove
   class Application < Rails::Application
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
@@ -18,5 +19,10 @@ module NaganoCake
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # デフォルトのロケールを:en以外に変更
+    config.i18n.default_locale = :ja
+    # I18nライブラリに訳文の探索場所を指示
+    config.i18n.load_path += Dir[Rails.root.join('config/locales/*.yml').to_s]
   end
 end

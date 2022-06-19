@@ -1,0 +1,14 @@
+<div class="field row form-inline m-2">
+  <div class="col-3">ユーザーネーム</div>
+  <%= f.text_field :last_name, autofocus: true, placeholder: "のべらぶ", class: "form-control mr-3" %>
+</div>
+
+<div class="field row form-inline m-2">
+  <div class="col-3">フリガナ</div>
+  <%= f.text_field :last_name_kana, placeholder: "ノベラブ", class: "form-control mr-3" %>
+</div>
+
+<div class="field row form-inline m-2">
+  <%= f.label :email, "メールアドレス", class: "col-3 justify-content-start" %>
+  <%= f.email_field :email, placeholder: "mail@example.com", class: "form-control" %>
+</div>

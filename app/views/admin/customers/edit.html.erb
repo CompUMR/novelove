@@ -1,0 +1,26 @@
+<%= render "layouts/section", title: @customer.last_name + "さんの会員情報編集" %>
+<%= render "layouts/error_messages", resource: @customer %>
+
+<!--フォーム入力後は、customersコントローラのshow.html.erbへ遷移-->
+<%= form_with(model:@customer, url: admin_customer_path(@customer), method: :patch, local: true) do |f| %>
+  <div class="field row m-2">
+    <div class="col-3">会員ID</div>
+    <div class="col-9"><%= @customer.id %></div>
+  </div>
+
+  <%= render "form", f: f %>
+
+  <div class="field row form-inline m-2">
+    <%= f.label :is_active, "会員ステータス", class: "col-3 justify-content-start" %>
+    <div class="form-check">
+    <% [true, false].each do |st| %>
+      <%= f.radio_button :is_active, st, class: "form-check-input" %>
+      <%= f.label :is_active, @customer.get_status_string(st), class: "form-check-label mr-3" %>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="actions text-center my-4">
+    <%= f.submit "変更を保存", class: "btn btn-success" %>
+  </div>
+<% end %>

@@ -1,0 +1,7 @@
+<%= render "layouts/section", title: "小説編集" %>
+
+<%= form_with model: @item, url: admin_item_path(@item), method: :patch, local: true do |f| %>
+  <%= render "layouts/error_messages", resource: @item %>
+  <%= render "form", f: f %>
+  <%= f.submit "変更を保存", class: "btn btn-success d-block mx-auto" %>
+<% end %>

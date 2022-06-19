@@ -1,0 +1,26 @@
+<%= render "layouts/section", title: "ジャンル一覧・追加" %>
+
+<%= render "layouts/error_messages", resource: @genre %>
+
+<%= form_with model: @genre, url: admin_genres_path, method: :post, class:"my-4 form-inline" do |f| %>
+  <span>ジャンル名</span>
+  <%= f.text_field :name, placeholder: "ジャンル名", class: "form-control mx-3" %>
+  <%= f.submit "新規登録", class: "btn btn-success" %>
+<% end %>
+
+<table class="table col-5">
+  <thead class="thead-light">
+    <tr>
+      <th>ジャンル</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @genres.each do |g| %>
+    <tr>
+      <td class=""><%= g.name %></td>
+      <td class="text-right"><%= link_to "編集する", edit_admin_genre_path(g), class: "btn btn-success btn-sm" %> </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

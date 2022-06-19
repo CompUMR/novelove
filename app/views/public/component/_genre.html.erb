@@ -1,0 +1,13 @@
+<table class="table table-sm table-borderless border bg-light">
+  <thead>
+    <tr><th class="text-center"> ジャンル検索 </th></tr>
+    </thead>
+  <tbody>
+    <% Genre.all.each do |g| %>
+    <tr>
+      <!--items#genreアクションが走り、render :indexによってindex.html.erbへ遷移-->
+      <td><%= link_to g.name, items_genre_path(g) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

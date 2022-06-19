@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row my-4">
+    <div class="col-2">
+      <%= render "public/component/genre" %>
+    </div>
+    <div class="col-4 text-center">
+      <% if @item.image.attached? %>
+        <%= image_tag @item.get_image(300, 200) %>
+      <% else %>
+        <%= image_tag 'no_image', size: "90x100" %>
+      <% end %>
+    </div>
+
+    <div class="col-6">
+      <h3><%= @item.name %></h3>
+      <p><%= @item.introduction %></p>
+      <div>
+        <!--itemsコントローラのreadingアクションが走り、reading.html.erbへ遷移-->
+        <span class="line"><%= link_to "小説を読む", item_reading_path(@item.id) %></span>
+      </div>
+
+      <div class="my-4">
+        <% if customer_signed_in? && @item.favorited_by?(current_customer) %>
+          <p>
+            <%= link_to item_favorites_path(@item), method: :delete do %>
+              ♥<%= @item.favorites.count %> いいね
+            <% end %>
+          </p>
+        <% elsif customer_signed_in? && !@item.favorited_by?(current_customer) %>
+          <p>
+            <%= link_to item_favorites_path(@item), method: :post do %>
+              ♡<%= @item.favorites.count %> いいね
+            <% end %>
+          </p>
+        <% end %>
+      </div>
+
+      <div class="my-4">
+        <p>コメント件数：<%= @item.post_comments.count %></p>
+        <% @item.post_comments.each do |post_comment| %>
+          <p>コメント主：<%= post_comment.customer.last_name %></p>
+          <!--コメント投稿日-->
+          <%= post_comment.created_at.strftime('%Y/%m/%d') %><br>
+          <!--コメント内容-->
+          <%= post_comment.comment %><br>
+          <% if customer_signed_in? && post_comment.customer == current_customer %>
+            <%= link_to "削除", item_post_comment_path(post_comment.item, post_comment), method: :delete %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <% if customer_signed_in? %>
+        <div>
+          <!--post_commentsコントローラのcreateアクションが走る-->
+          <%= form_with model:[@item, @post_comment], method: :post, local: true do |f| %>
+            <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+            <%= f.submit "送信する" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

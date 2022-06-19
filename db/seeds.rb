@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# テストデータの用意。(rails db:seedコマンドを実行、登録)
+Admin.create!(
+  email: 'test1@example.com',
+  password: 'test1test1'
+)

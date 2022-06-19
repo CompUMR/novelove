@@ -1,16 +1,116 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NaganoCake</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>novelove</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="d-flex flex-column vh-100">
+    <header class="bg-dark text-white border-bottom sticky-top">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <div class="col-2 my-auto">
+            <%= link_to (admin_signed_in? ? admin_root_path : root_path) do %>
+              <%= image_tag 'logo.png', size: "220x80" %>
+            <% end %>
+          </div>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse col-9 row" id="navbarNavDropdown">
+            <ul class="d-flex navbar-nav ml-auto">
+              <!--管理者ログイン状態のヘッダーリンク-->
+              <% if admin_signed_in? %>
+                <div class="nav-item m-1"><%= link_to "小説一覧", admin_items_path, class:"btn btn-outline-secondary bg-light" %></div>
+                <div class="nav-item m-1"><%= link_to "会員一覧", admin_customers_path, class:"btn btn-outline-secondary bg-light" %></div>
+                <div class="nav-item m-1"><%= link_to "コメント履歴一覧", admin_root_path, class:"btn btn-outline-secondary bg-light" %></div>
+                <div class="nav-item m-1"><%= link_to "ジャンル一覧", admin_genres_path, class:"btn btn-outline-secondary bg-light" %></div>
+                <div class="nav-item m-1"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class:"btn btn-outline-secondary bg-light"  %></div>
+              <!--会員ログイン状態のヘッダーリンク-->
+              <% elsif customer_signed_in? %>
+                <div class="nav-item m-1"><%= link_to "マイページ", my_page_path(current_customer.id), class:"btn btn-outline-secondary bg-light" %></div>
+                <div class="nav-item m-1"><%= link_to "小説一覧", items_path, class:"btn btn-outline-secondary bg-light" %></div>
+                <div class="nav-item m-1"><%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class:"btn btn-outline-secondary bg-light" %></div>
+              <!--管理者ログアウト状態のヘッダーリンク-->
+              <% elsif request.fullpath.include?("/admin") %>
+                <li class="nav-item m-1">
+                  <%= link_to "/homes/about", class:"btn btn-outline-secondary bg-light" do %>
+                    <i class="fas fa-link"></i>About
+                  <% end %>
+                </li>
+                <li class="nav-item m-1">
+                  <%= link_to items_path, class:"btn btn-outline-secondary bg-light" do %>
+                    <i class="fas fa-home"></i>小説一覧
+                  <% end %>
+                </li>
+                <li class="nav-item m-1">
+                  <%= link_to new_customer_registration_path, class:"btn btn-outline-secondary bg-light" do %>
+                    <i class="fas fa-user-plus"></i>新規登録
+                  <% end %>
+                </li>
+                <li class="nav-item m-1">
+                  <%= link_to new_admin_session_path, class:"btn btn-outline-secondary bg-light" do %>
+                    <i class="fas fa-sign-in-alt"></i>ログイン
+                  <% end %>
+                </li>
+              <!--会員ログアウト状態のヘッダーリンク-->
+              <% else %>
+                <li class="nav-item m-1">
+                  <%= link_to "/homes/about", class:"btn btn-outline-secondary bg-light" do %>
+                    <i class="fas fa-link"></i>About
+                  <% end %>
+                </li>
+                <li class="nav-item m-1">
+                  <%= link_to items_path, class:"btn btn-outline-secondary bg-light" do %>
+                    <i class="fas fa-home"></i>小説一覧
+                  <% end %>
+                </li>
+                <li class="nav-item m-1">
+                  <%= link_to new_customer_registration_path, class:"btn btn-outline-secondary bg-light" do %>
+                    <i class="fas fa-user-plus"></i>新規登録
+                  <% end %>
+                </li>
+                <li class="nav-item m-1">
+                  <%= link_to new_customer_session_path, class:"btn btn-outline-secondary bg-light" do %>
+                    <i class="fas fa-sign-in-alt"></i>ログイン
+                  <% end %>
+                </li>
+              <% end %>
+
+              <!--小説名検索フォーム-->
+              <div class="ml-auto row form-inline mb-1">
+                <%= form_with url: (admin_signed_in? ? admin_items_search_path : items_search_path), method: :get, local: true, class:"ml-auto" do |f| %>
+                  <%= f.text_field :search_word, placeholder: "小説名で検索", class: "form-control mr-0" %>
+                  <%= f.submit "検索", class: "btn btn-primary" %>
+                <% end %>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="mb-auto container py-2">
+      <% if flash.now[:alert] %>
+        <p class="alert alert-danger my-2"><%= flash.now[:alert] %></p>
+      <% end %>
+      <% if flash.now[:notice] %>
+        <p class="alert alert-success my-2"><%= flash.now[:notice] %></p>
+      <% end %>
+      <%= yield %>
+    </main>
+
+    <footer>
+      <div class="mt-3 py-4 text-light bg-dark border-top text-center">
+        ©Copyright novelove, Co., Ltd.
+      </div>
+    </footer>
   </body>
 </html>

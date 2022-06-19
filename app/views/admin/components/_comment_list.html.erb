@@ -1,0 +1,27 @@
+<%= render "layouts/section", title: title %>
+
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th>コメント日時</th>
+      <% if show_customer %>
+      <th>コメントユーザー</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% comments.each do |com| %>
+    <tr>
+      <!--commentsコントローラのshowアクションが走り、comments/show.html.erbへ遷移-->
+      <td><u><%= link_to com.created_at.strftime('%Y/%m/%d %T'), admin_comment_path(com), class:"underline" %></u></td>
+      <% if show_customer %>
+      <!--admin/customersコントローラのcommentsアクションが走り、comments.html.erbへ遷移-->
+      <td><%= link_to com.customer.full_name, admin_customer_comments_path(com.customer_id), class:"underline" %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<!--ページネーションに必要なヘルパーの設定-->
+<%= paginate comments %>

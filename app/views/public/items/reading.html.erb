@@ -1,0 +1,7 @@
+<% if @item.is_active %>
+  <%= sanitize(@content) %>
+<% else %>
+  <h2>
+    この小説は非公開設定になっています。
+  </h2>
+<% end %>

@@ -1,0 +1,14 @@
+<div class="mt-5 pt-5">
+  <h2 class="text-center mt-5">本当に退会しますか？</h2>
+  <p class="text-center my-4">
+    退会すると、会員登録情報の閲覧や新規小説投稿、<br>
+    お気に入り(いいね)登録、コメント投稿が出来なくなります。<br>
+    退会する場合は、「退会する」をクリックして下さい。<br>
+  </p>
+  <div class="text-center">
+    <!--customers#showアクション実行後、show.html.erbへ遷移-->
+    <%= link_to "退会しない", my_page_path(current_customer.id), class: "btn btn-primary mr-3" %>
+    <!--customers#withdrawアクション(退会処理)実行後、homes/top.html.erbへ遷移-->
+    <%= link_to "退会する", customers_withdraw_path, data: { confirm: "本当に退会しますか？"}, method: :patch, class: "btn btn-danger" %>
+  </div>
+</div>

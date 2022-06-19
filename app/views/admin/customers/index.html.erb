@@ -1,0 +1,26 @@
+<%= render "layouts/section", title: "会員一覧" %>
+
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th>会員ID</th>
+      <th>氏名</th>
+      <th>メールアドレス</th>
+      <th>ステータス</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @customers.each do |c| %>
+    <tr>
+      <td><%= c.id %></td>
+      <!--customersコントローラのshow.html.erbへ遷移-->
+      <td><u><%= link_to c.last_name, admin_customer_path(c), class: "text-dark" %></u></td>
+      <td><%= c.email %></td>
+      <td><%= render "status", customer: c %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<!--ページネーションに必要なヘルパーを設定-->
+<%= paginate @customers %>

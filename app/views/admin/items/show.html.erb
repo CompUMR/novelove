@@ -1,0 +1,40 @@
+<%= render "layouts/section", title: "小説詳細" %>
+
+<div class="container">
+  <div class="row">
+    <div "m-3">
+      <% if @item.image.attached? %>
+        <%= image_tag @item.get_image(300, 200) %>
+      <% else %>
+        <%= image_tag 'no_image', size: "90x100" %>
+      <% end %>
+    </div>
+    <div>
+      <table class="table m-3 table-borderless">
+        <tbody>
+          <tr>
+            <td>小説名</td>
+            <!--itemsコントローラのreading.html.erbへ遷移-->
+            <td><span class="line"><%= link_to @item.name, admin_item_reading_path(@item.id), class: "text-dark" %></span></td>
+          </tr>
+          <tr>
+            <td>小説説明</td>
+            <td><%= @item.introduction %></td>
+          </tr>
+          <tr>
+            <td>ジャンル</td>
+            <td><%= @item.genre.name %></td>
+          </tr>
+          <tr>
+            <td>公開ステータス</td>
+            <td><%= render "status", item: @item %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-12 text-center">
+      <!--itemsコントローラのedit.html.erbへ遷移-->
+      <%= link_to "編集する", edit_admin_item_path(@item), class: "btn btn-success" %>
+    </div>
+  </div>
+</div>

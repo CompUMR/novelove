@@ -1,0 +1,12 @@
+<%= render "layouts/section", title: "会員情報編集" %>
+
+<%= render "layouts/error_messages", resource: current_customer %>
+
+<%= form_with(model: current_customer, url: customers_path(current_customer), method: :patch, local: true) do |f| %>
+  <%= render "admin/customers/form", f: f %>
+  <div class="actions row">
+    <%= f.submit "編集内容を保存", class: "btn btn-success ml-auto" %>
+    <!--unsubscribe.html.erb(退会確認画面)へ遷移-->
+    <%= link_to "退会する", customers_unsubscribe_path, class: "btn btn-danger ml-5 mr-auto" %>
+  </div>
+<% end %>

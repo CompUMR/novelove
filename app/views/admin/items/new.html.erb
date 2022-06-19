@@ -1,0 +1,7 @@
+<%= render "layouts/section", title: "小説新規投稿" %>
+
+<%= form_with model: @item, url: admin_items_path, method: :post, local: true do |f| %>
+  <%= render "layouts/error_messages", resource: @item %>
+  <%= render "form", f: f %>
+  <%= f.submit "新規投稿", class: "btn btn-success d-block mx-auto" %>
+<% end %>

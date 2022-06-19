@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <%= render "layouts/section", title: (@title + "(全#{@items_count}件)") %>
+  </div>
+</div>
+
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th>小説ID</th>
+      <th>小説ファイル</th>
+      <th>小説名</th>
+      <th>ジャンル</th>
+      <th>ステータス</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+    <tr>
+      <td><%= item.id %></td>
+      <!--itemsコントローラのreading.html.erbへ遷移-->
+      <td><span class="line"><%= link_to "小説を読む", admin_item_reading_path(item.id), class: "text-dark" %></span></td>
+      <!--itemsコントローラのshow.html.erbへ遷移-->
+      <td><span class="line"><%= link_to item.name, admin_item_path(item), class: "text-dark" %></span></td>
+      <td><%= item.genre.name %></td>
+      <td><%= render "status", item: item %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<!--ページネーションに必要なヘルパーを用意-->
+<%= paginate @items %>

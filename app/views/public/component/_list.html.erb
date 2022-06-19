@@ -1,0 +1,30 @@
+<div class="container">
+  <% items.each do |item| %>
+    <div class="col-3">
+      <div class="text-center">
+        <% if item.image.attached? %>
+          <%= link_to item_path(item) do %>
+            <%= image_tag item.get_image(210, 140) %>
+          <% end %>
+        <% else %>
+          <%= link_to item_path(item) do %>
+            <%= image_tag 'no_image', size: "90x100" %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="my-3"><b><%= item.name %></b></div>
+
+      <p><%= link_to "#{item.post_comments.count} コメント", item_path(item.id) %></p>
+
+      <% if customer_signed_in? && item.customer_id == current_customer.id  %>
+        <div class="btn btn-sm btn-success">
+          <%= link_to "編集", edit_item_path(item.id), class: 'text-light' %>
+        </div>
+        <span class="btn btn-sm btn-danger">
+          <%= link_to "削除", item_path(item.id), method: :delete, class: 'text-light', "data-confirm" => "本当に消しますか？" %>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
+</div>

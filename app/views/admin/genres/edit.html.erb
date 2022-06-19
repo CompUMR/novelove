@@ -1,0 +1,9 @@
+<%= render "layouts/section", title: "ジャンル編集" %>
+
+<%= render "layouts/error_messages", resource: @genre %>
+
+<%= form_with model: @genre, url: admin_genre_path(@genre), method: :patch, class: "form-inline" do |f| %>
+  <span>ジャンル名</span>
+  <%= f.text_field :name, placeholder: "ジャンル名", class: "form-control mx-3" %>
+  <%= f.submit "変更を保存", class: "btn btn-success" %>
+<% end %>

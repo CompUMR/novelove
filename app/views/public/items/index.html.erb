@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row my-4">
+    <div class="col-2">
+      <%= render "public/component/genre" %>
+    </div>
+    <div class="col-10">
+      <div class="my-4">
+        <h2 class="d-inline-block m-2"><%= @title %></h2><span>(全<%= @items_count %>件)</span>
+        <% if customer_signed_in? %>
+          <%= link_to "+", new_item_path, class: "btn text-secondary rounded-circle shadow-sm btn-light m-4" %>
+        <% end %>
+      </div>
+
+      <% if @items_count == 0 %>
+      商品が見つかりませんでした。
+      <% end %>
+
+      <div class="row col-12">
+        <%= render "public/component/list", items: @items %>
+      </div>
+
+      <!--ページネーションに必要なヘルパーを追加-->
+      <%= paginate @items %>
+    </div>
+  </div>
+</div>

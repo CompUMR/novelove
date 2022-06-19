@@ -5,7 +5,7 @@
     <tr>
       <th>コメントユーザー</th>
       <!--customersコントローラのshowアクションが走り、customers/show.html.erbへ遷移-->
-      <td><u><%= link_to @comment.customer.full_name, admin_customer_path(@comment.customer) %></u></td>
+      <td><u><%= link_to @comment.customer.last_name, admin_customer_path(@comment.customer) %></u></td>
     </tr>
     <tr>
       <th>コメント日時</th>

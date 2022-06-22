@@ -1,8 +1,8 @@
 @import '~bootstrap/scss/bootstrap';
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+//@import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
 .test {
-  background-image: url('../images/wolf.jpg');
+  background-image: image-url('../images/wolf.jpg');
 }
 
 .line {

@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+.test {
+  background-image: image-url('../images/wolf.jpg');
+}
+
+.line {
+  text-decoration: underline;
+}

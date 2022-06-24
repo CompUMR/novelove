@@ -9,7 +9,7 @@
         <% else %>
           <%= link_to item_path(item) do %>
             <!--本番環境用に、railsの機能であるasset_pathオプションを使用-->
-            <%= image_tag asset_path("no_image.jpeg"), size: "90x100" %>
+            <%= image_tag asset_path("no_image.jpg"), size: "90x100" %>
           <% end %>
         <% end %>
       </div>

@@ -5,8 +5,18 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!--<%#= stylesheet_link_tag "public/#{params[:controller]}/#{params[:action]}", media: 'all', 'data-turbolinks-track': 'reload' %>-->
+    <!--以下のように記述すれば、特定のコントローラの特定のアクションごとにCSSを適用してくれる。
+    assets/stylesheets/public/itemsというフォルダを作ってその下にindex.scssとか作れば、index.scssに書いたCSSは
+    publicのitemsコントローラのindexアクション起動時にだけ適用される。つまりpublic/items/index.html.erbにだけ適用される-->
+      <!--<%#= stylesheet_link_tag "public/#{params[:controller]}/#{params[:action]}", media: 'all', 'data-turbolinks-track': 'reload' %>-->
+    <!--というか、画像はもう全部novelove/publicの直下に直接置いてしまった方がいいかも。assets/imagesの中に置いてあると、
+    本番環境でプリコンパイルした時にrailsのバージョンに左右される事があるが、この方法なら左右されない。(てかプリコンパイルも必要なくなる？)
+    (プリコンパイル：railsの機能。ユーザーがファイルの中身を変更した事を機械側が分かるように、ファイル名を毎回異なる数字&アルファベットの羅列に
+    変換し、「この画像ファイルは中身が変わってるよ」という事を機械側が分かるようにしてくれている)
+    ただ、この方法だと同じ名前の画像ファイルは変更しても区別できなくなる為、画像自体を変えた際は、ファイル名も別の名称にする必要があるけど。-->
+    <!--app/assets/stylesheets/publicのapplication.scssを適用するコード。'application'というのはファイル名-->
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!--app/javascript/stylesheetsのapplication.scssを適用するコード。rails webpacker:install-->
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
